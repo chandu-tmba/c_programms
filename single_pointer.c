@@ -24,7 +24,7 @@ int main()
 	{
 		for(j=0;j<4;j++)
 		{
-			*(single_ptr+j*4+i)=i+j;
+			*(single_ptr+i*4+j)=i+j;
 		}
 	}
 
@@ -32,7 +32,7 @@ int main()
         {
                 for(j=0;j<4;j++)
                 {
-                       printf("single_ptr[%d][%d]:%d\n",i,j,*(single_ptr+j*4+i));
+                       printf("single_ptr[%d][%d]:%d\n",i,j,*(single_ptr+i*4+j));
                 }
         }
 
