@@ -3,111 +3,138 @@
  
 struct node
 {
-    int data;
-    struct node *next;
+	int data;
+	struct node *next;
 }*head;
  
   
 void append(int num)
 {
-    struct node *temp,*right;
-    temp= (struct node *)malloc(sizeof(struct node));
-    temp->data=num;
-    right=(struct node *)head;
-    while(right->next != NULL)
-    right=right->next;
-    right->next =temp;
-    right=temp;
-    right->next=NULL;
+	struct node *temp,*right;
+	temp= (struct node *)malloc(sizeof(struct node));
+	temp->data=num;
+	right=(struct node *)head;
+	while(right->next != NULL)
+		right=right->next;
+	right->next =temp;
+	right=temp;
+	right->next=NULL;
 }
 
 
 void set_loop()
 {
 
-  struct node *temp=head;
-  
-  while(temp->next)
-  {
+	struct node *temp=head;
 
-	temp=temp->next;
+	while(temp->next)
+	{
 
-  }
- 
-  temp->next = head->next->next;
- 
+		temp=temp->next;
+
+	}
+
+	temp->next = head->next->next;
+
 }
  
+void find_nth_node_from_last(int n)
+{
+
+ 	struct node *slow_ptr,*fast_ptr;
+        int count=0;
+	
+	slow_ptr=head;
+        fast_ptr=head;	
+
+	while(fast_ptr->next)
+	{
+
+	 count++;
+	 if(count >= n)
+	 {
+	     slow_ptr =slow_ptr->next;
+             //printf("slowptr data:%d\n",slow_ptr->data);
+  	 }
+
+         fast_ptr=fast_ptr->next;
+         //printf("fastptr data:%d\n",fast_ptr->data); 
+ 
+	}
+       printf("n th node from last is %d\n",slow_ptr->data);
+
+}
+
 
 void find_second_least_node_and_remove()
 {
 
-   struct node *temp,*temp1,*temp2;
-   int least1,least2;
+	struct node *temp,*temp1,*temp2;
+	int least1,least2;
 
-   if(head)
-   	least1=head->data;
+	if(head)
+		least1=head->data;
 
-   if(head->next)
-   	least2=head->next->data;	
+	if(head->next)
+		least2=head->next->data;	
 
-   temp=head;
+	temp=head;
 
-   while(temp)
-   {
-
-	if (least1 > temp->data)
+	while(temp)
 	{
-		least2=least1;
-		least1=temp->data;
+
+		if (least1 > temp->data)
+		{
+			least2=least1;
+			least1=temp->data;
+		}
+
+		if( ((temp->data) > least1) &&  ((temp->data) < least2))
+		{
+			least2=temp->data;
+		}
+		temp=temp->next;
+
+	}	
+
+	printf("least1:%d least2:%d\n",least1,least2);
+
+
+	temp=head;
+
+	//if head is a second least node
+	if(head->data == least2)
+	{
+
+		temp = head;
+		head= head->next;
+		free(temp);
+		return ;
 	}
 
-	if( ((temp->data) > least1) &&  ((temp->data) < least2))
+
+	//finding in the middle
+
+	while(temp->next)
 	{
-	 	least2=temp->data;
-	}
-	temp=temp->next;
 
-   }	
+		if(temp->next->data == least2)
+		{
+			printf("temp->next->data :%d\n",temp->next->data);
+			temp1=temp->next;
+			if(temp->next)
+				temp->next=temp->next->next;
+			else
+				temp=NULL;
+			free(temp1);
+			break; 
 
-   printf("least1:%d least2:%d\n",least1,least2);
-
-
-   temp=head;
-
-   //if head is a second least node
-   if(head->data == least2)
-   {
-
-	temp = head;
-	head= head->next;
-	free(temp);
-	return ;
-   }
-
-
-   //finding in the middle
-
-   while(temp->next)
-   {
-
-	if(temp->next->data == least2)
-	{
-		printf("temp->next->data :%d\n",temp->next->data);
-		temp1=temp->next;
-		if(temp->next)
-			temp->next=temp->next->next;
-		else
-			temp=NULL;
-		free(temp1);
-		break; 
+		}
+		temp=temp->next;
 
 	}
-	temp=temp->next;
 
-  }
-
-  return;
+	return;
 
 }
 
@@ -115,68 +142,68 @@ void find_second_least_node_and_remove()
  
 void add( int num )
 {
-    struct node *temp;
-    temp=(struct node *)malloc(sizeof(struct node));
-    temp->data=num;
-    if (head== NULL)
-    {
-    head=temp;
-    head->next=NULL;
-    }
-    else
-    {
-    temp->next=head;
-    head=temp;
-    }
+	struct node *temp;
+	temp=(struct node *)malloc(sizeof(struct node));
+	temp->data=num;
+	if (head== NULL)
+	{
+		head=temp;
+		head->next=NULL;
+	}
+	else
+	{
+		temp->next=head;
+		head=temp;
+	}
 }
 
 
 void addafter(int num, int loc)
 {
-    int i;
-    struct node *temp,*left,*right;
-    right=head;
-    for(i=1;i<loc;i++)
-    {
-    left=right;
-    right=right->next;
-    }
-    temp=(struct node *)malloc(sizeof(struct node));
-    temp->data=num;
-    left->next=temp;
-    left=temp;
-    left->next=right;
-    return;
+	int i;
+	struct node *temp,*left,*right;
+	right=head;
+	for(i=1;i<loc;i++)
+	{
+		left=right;
+		right=right->next;
+	}
+	temp=(struct node *)malloc(sizeof(struct node));
+	temp->data=num;
+	left->next=temp;
+	left=temp;
+	left->next=right;
+	return;
 }
  
 void find_loop()
 {
 
-  printf("from find loop\n");
-  struct node *temp;
-  temp=head;
-  if(temp==NULL)
-	return;
-   
-  struct node *fast_ptr,*slow_ptr; 
-  slow_ptr=head;
-  fast_ptr=head;
-  while(slow_ptr && fast_ptr && fast_ptr->next)
-  {
+	printf("from find loop\n");
+	struct node *temp;
+	temp=head;
+	if(temp==NULL)
+		return;
 
-   fast_ptr=fast_ptr->next->next;
-   slow_ptr=slow_ptr->next;
-  
- 
-   if( slow_ptr == fast_ptr)
-   {
-       printf("found loop loop data:%d\n",slow_ptr->data); 
-       return;
+	struct node *fast_ptr,*slow_ptr; 
+	slow_ptr=head;
+	fast_ptr=head;
+	while(slow_ptr && fast_ptr && fast_ptr->next)
+	{
 
-   }
+		fast_ptr=fast_ptr->next->next;
+		slow_ptr=slow_ptr->next;
 
-  }
-  printf("no loop found\n");
+
+		if( slow_ptr == fast_ptr)
+		{
+			printf("found loop loop data:%d\n",slow_ptr->data); 
+			return;
+
+		}
+
+	}
+	printf("no loop found\n");
 
 }
 
@@ -184,85 +211,86 @@ void find_loop()
  
 void insert(int num)
 {
-    int c=0;
-    struct node *temp;
-    temp=head;
-    if(temp==NULL)
-    {
-    add(num);
-    }
+	int c=0;
+	struct node *temp;
+	temp=head;
+	if(temp==NULL)
+	{
+		add(num);
+	}
 
-    else
-    {
-        append(num);
-    }
+	else
+	{
+		append(num);
+	}
 }
  
  
  
 int delete(int num)
 {
-    struct node *temp, *prev;
-    temp=head;
-    while(temp!=NULL)
-    {
-    if(temp->data==num)
-    {
-        if(temp==head)
-        {
-        head=temp->next;
-        free(temp);
-        return 1;
-        }
-        else
-        {
-        prev->next=temp->next;
-        free(temp);
-        return 1;
-        }
-    }
-    else
-    {
-        prev=temp;
-        temp= temp->next;
-    }
-    }
-    return 0;
+	struct node *temp, *prev;
+	temp=head;
+	while(temp!=NULL)
+	{
+		if(temp->data==num)
+		{
+			if(temp==head)
+			{
+				head=temp->next;
+				free(temp);
+				return 1;
+			}
+			else
+			{
+				prev->next=temp->next;
+				free(temp);
+				return 1;
+			}
+		}
+		else
+		{
+			prev=temp;
+			temp= temp->next;
+		}
+	}
+	return 0;
 }
  
  
 void  display(struct node *r)
 {
-    r=head;
-    if(r==NULL)
-    {
-    return;
-    }
-    while(r!=NULL)
-    {
-    printf("%d ",r->data);
-    r=r->next;
-    }
-    printf("\n");
-   
-    find_second_least_node();
-    set_loop();
-    find_loop();
+	r=head;
+	if(r==NULL)
+	{
+		return;
+	}
+	while(r!=NULL)
+	{
+		printf("%d ",r->data);
+		r=r->next;
+	}
+	printf("\n");
+
+        find_nth_node_from_last(1);
+	//find_second_least_node();
+	//set_loop();
+	//find_loop();
 
 }
  
  
 int count()
 {
-    struct node *n;
-    int c=0;
-    n=head;
-    while(n!=NULL)
-    {
-    n=n->next;
-    c++;
-    }
-    return c;
+	struct node *n;
+	int c=0;
+	n=head;
+	while(n!=NULL)
+	{
+		n=n->next;
+		c++;
+	}
+	return c;
 }
  
  
