@@ -36,6 +36,7 @@ int main()
             if(sum > max)
                 max=sum;
         }
+				
         
     }
     printf("max val is %d\n",max);
