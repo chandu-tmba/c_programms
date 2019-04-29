@@ -102,7 +102,7 @@ void string_sort(char** arr,const int len,int (*cmp_func)(const char* a, const c
       {
         for (i = j + 1; i < len; i++)
         {
-          if (sort_by_number_of_distinct_characters(arr[j], arr[i]) > 0)
+          if (sort_by_number_of_distinct_characters(arr[j], arr[i]) < 0)
           {
             temp_ptr = arr[j];
             arr[j] = arr[i];
@@ -117,7 +117,7 @@ void string_sort(char** arr,const int len,int (*cmp_func)(const char* a, const c
     {
       for (j = 0; j < len - 1; j++) {
         for (i = j + 1; i < len; i++) {
-          if (sort_by_length(arr[j], arr[i]) > 0) {
+          if (sort_by_length(arr[j], arr[i]) < 0) {
             temp_ptr = arr[j];
             arr[j] = arr[i];
             arr[i] = temp_ptr;
