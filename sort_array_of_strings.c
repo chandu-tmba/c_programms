@@ -12,7 +12,7 @@ int lexicographic_sort_reverse(const char* a, const char* b)
     return strcmp(b,a);
 }
 
-int find_count(const char a, int len)
+int find_count(const char* a, int len)
 {
   int i,j,count=0;   
   for (i =0; i < len; i++) 
@@ -41,7 +41,7 @@ int sort_by_number_of_distinct_characters(const char* a, const char* b)
 
     if (count1 > count2)
         return -1;
-    else if(count 2 > count 1)
+    else if(count2 > count1)
         return 1;
     else 
         return 0;
@@ -54,7 +54,7 @@ int sort_by_length(const char* a, const char* b)
     int len2=strlen(b);
 
     if (len1 > len2)
-      return 1-;
+      return -1;
     else if ( len2 > len1)
       return 1;
     else
@@ -63,44 +63,69 @@ int sort_by_length(const char* a, const char* b)
 
 void string_sort(char** arr,const int len,int (*cmp_func)(const char* a, const char* b))
 {
- 
-    
+    int i,j;
+    char *temp_ptr=NULL;
 
-
-}
-
-
-int main() 
-{
-    int n;
-    scanf("%d", &n);
-  
-    char** arr;
-	arr = (char**)malloc(n * sizeof(char*));
-  
-    for(int i = 0; i < n; i++){
-        *(arr + i) = malloc(1024 * sizeof(char));
-        scanf("%s", *(arr + i));
-        *(arr + i) = realloc(*(arr + i), strlen(*(arr + i)) + 1);
+    if (*cmp_func == lexicographic_sort)
+    {
+      for (j = 0; j < len-1; j++)
+       {
+        for (i = j + 1; i < len; i++) {
+          if (lexicographic_sort(arr[j], arr[i]) > 0) 
+          {
+            temp_ptr = arr[j];
+            arr[j] = arr[i];
+            arr[i] = temp_ptr;
+          }
+        }
+      }
     }
-  
-    string_sort(arr, n, lexicographic_sort);
-    for(int i = 0; i < n; i++)
-        printf("%s\n", arr[i]);
-    printf("\n");
 
-    string_sort(arr, n, lexicographic_sort_reverse);
-    for(int i = 0; i < n; i++)
-        printf("%s\n", arr[i]); 
-    printf("\n");
+    else if (*cmp_func == lexicographic_sort_reverse) 
+    {
+      for (j = 0; j < len - 1; j++)
+      {
+        for (i = j + 1; i < len; i++) 
+        {
+          if (lexicographic_sort_reverse(arr[j], arr[i]) > 0) {
+            temp_ptr = arr[j];
+            arr[j] = arr[i];
+            arr[i] = temp_ptr;
+          }
+        }
+      }
+    }
 
-    string_sort(arr, n, sort_by_length);
-    for(int i = 0; i < n; i++)
-        printf("%s\n", arr[i]);    
-    printf("\n");
+    else if (*cmp_func == sort_by_number_of_distinct_characters)
+    {
+      for (j = 0; j < len - 1; j++) 
+      {
+        for (i = j + 1; i < len; i++)
+        {
+          if (sort_by_number_of_distinct_characters(arr[j], arr[i]) > 0)
+          {
+            temp_ptr = arr[j];
+            arr[j] = arr[i];
+            arr[i] = temp_ptr;
+          }
+         
+        }
+      }
 
-    string_sort(arr, n, sort_by_number_of_distinct_characters);
-    for(int i = 0; i < n; i++)
-        printf("%s\n", arr[i]); 
-    printf("\n");
+    }
+    else 
+    {
+      for (j = 0; j < len - 1; j++) {
+        for (i = j + 1; i < len; i++) {
+          if (sort_by_length(arr[j], arr[i]) > 0) {
+            temp_ptr = arr[j];
+            arr[j] = arr[i];
+            arr[i] = temp_ptr;
+          }
+        }
+      }
+    }
+
+
 }
+
