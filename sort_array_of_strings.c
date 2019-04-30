@@ -12,22 +12,29 @@ int lexicographic_sort_reverse(const char* a, const char* b)
     return strcmp(b,a);
 }
 
-int find_count(const char* a, int len)
-{
-  int i,j,count=0;   
-  for (i =0; i < len; i++) 
-  {
-    for (j = 0; (j < len && j != i); j++) 
-    {
-      if (a[i] == a[j]) 
-        continue;
-      else 
-        count++;
+
+
+int find_count(const char *a, int len) {
+
+  int i, j, count = 0;
+  char *d = calloc(1, len);
+
+  strcpy(d, a); 
+ 
+  for (i = 0; i < strlen(d); i++) {
+    for (j = 0; j < strlen(d); j++) {
+      if ((i != j) && (d[i] == d[j])) {
+        memmove(d + j, d + j + 1, strlen(d + j + 1));
+        *(d + (strlen(d) - 1)) = '\0';
+        j--;
+      }
     }
   }
+
+  count = strlen(d);
+  free(d);
   return count;
 }
-
 
 int sort_by_number_of_distinct_characters(const char* a, const char* b) 
 {
@@ -108,7 +115,15 @@ void string_sort(char** arr,const int len,int (*cmp_func)(const char* a, const c
             arr[j] = arr[i];
             arr[i] = temp_ptr;
           }
-         
+          if (sort_by_number_of_distinct_characters(arr[j], arr[i]) == 0)
+          {
+            if (lexicographic_sort(arr[j], arr[i]) > 0) 
+            {
+              temp_ptr = arr[j];
+              arr[j] = arr[i];
+              arr[i] = temp_ptr;
+            }
+          }
         }
       }
 
@@ -117,10 +132,20 @@ void string_sort(char** arr,const int len,int (*cmp_func)(const char* a, const c
     {
       for (j = 0; j < len - 1; j++) {
         for (i = j + 1; i < len; i++) {
-          if (sort_by_length(arr[j], arr[i]) < 0) {
+          if (sort_by_length(arr[j], arr[i]) < 0) 
+          {
             temp_ptr = arr[j];
             arr[j] = arr[i];
             arr[i] = temp_ptr;
+          }
+          if (sort_by_length(arr[j], arr[i]) == 0)
+          {
+            if (lexicographic_sort(arr[j], arr[i]) > 0) 
+            {
+              temp_ptr = arr[j];
+              arr[j] = arr[i];
+              arr[i] = temp_ptr;
+            }
           }
         }
       }
