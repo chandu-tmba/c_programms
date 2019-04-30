@@ -64,6 +64,7 @@ int find_count(const char *a, int len)
         {
             memmove(d+j,d+j+1,strlen(d+j+1));
             *(d+(strlen(d)-1)) = '\0';
+            j--;
         }    
     }
     
