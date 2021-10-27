@@ -108,7 +108,7 @@ Redfish Implementaiton will add 2 properties named PasswordPolicyComplexity and 
 
 GET /redfish/v1/AccountService
 
-        - **response**
+- **response**
 ```json    	
 	{
 	"@odata.id":"/redfish/v1/AccountService",
@@ -145,7 +145,7 @@ GET /redfish/v1/AccountService
 
 PATCH /redfish/v1/AccountService
 
-	- **request**
+- **request**
 ```json
 	{
 		"Oem": 
