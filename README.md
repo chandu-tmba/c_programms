@@ -108,8 +108,8 @@ Redfish Implementaiton will add 2 properties named PasswordPolicyComplexity and 
 
 GET /redfish/v1/AccountService
 
-      
-      	
+        - **response**
+        ```json    	
 	{
 	"@odata.id":"/redfish/v1/AccountService",
 	"@odata.type":"#AccountService.v1_5_0.AccountService",
@@ -141,25 +141,23 @@ GET /redfish/v1/AccountService
 	"ServiceEnabled":true,
 	"Status":{}
 	}
-   	
+   	 ```
 
 PATCH /redfish/v1/AccountService
 
-Request
-```json
-{
-	"Oem": 
+	- **request**
+	```json
 	{
+		"Oem": 
+		{
 		"OpenBMC": {
                 	"PasswordPolicyComplexity": 1,
                 	"RememberOldPasswordTimes": 4
             	 }
+		}
 	}
-}
-```
-
-
-
+	```
+	
 ### Front-end: The frontend will add 2 new settings for password complexity and password history to the webui under security settings.
 
 ## Alternatives Considered
