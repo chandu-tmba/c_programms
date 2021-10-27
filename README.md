@@ -108,7 +108,7 @@ Redfish Implementaiton will add 2 properties named PasswordPolicyComplexity and 
 
 GET /redfish/v1/AccountService
 
-      - **response**
+      
       	```json
 	{
 	"@odata.id":"/redfish/v1/AccountService",
@@ -152,7 +152,7 @@ Request
 	{
 		"OpenBMC": {
                 	"PasswordPolicyComplexity": 1,
-                	/redfish/v1/AccountService"RememberOldPasswordTimes": 4
+                	"RememberOldPasswordTimes": 4
             	 }
 	}
 }
