@@ -45,6 +45,10 @@ Created: December 17, 2021
 1.	psueve1
 2.	psueve2
 
+•	MB EVE Sensors
+
+1. MBon_GBoff
+
 •   PSU dbus objects will be retrived based on the interface xyz.openbmc_project.Inventory.Item.PowerSupply and dbus properties will be updated based on cpld registers using polling mechanism
 
 •	While creating dbus service and psu event objects, we will initialize the sensors from registers using libI2C, and polling mechanism  will be followed to monitor the register changes. 
@@ -53,7 +57,9 @@ Created: December 17, 2021
 
 ## sequence diagram
 
-![image](https://user-images.githubusercontent.com/87798274/148245447-a2869251-d091-4a24-a4bf-9b4b78468c8d.png)
+![image](https://user-images.githubusercontent.com/87798274/148361047-9682d4ab-8c88-4d1d-890c-a63a542f6bdd.png)
+
+
 
 
 ## Dbus Details
@@ -69,6 +75,7 @@ Created: December 17, 2021
 | xyz.openbmc_project.inventory.cpld_psu_manager.service |    /xyz/openbmc_project/inventory/system/chassis/psu6    | xyz.openbmc_project.Inventory.Item<br>Properties<br>PrettyName (string)   <br>Present   (Boolean)<br><br>PSU6_DETECT-> Present property<br><br>xyz.openbmc_project.State.Decorator.PowerState<br>properties<br>PowerState (Enum)<br><br>PSU6_WORK -> PowerState property<br><br>xyz.openbmc_project.State.Decorator.OperationalStatus<br>properties<br>Functional (Boolean)<br><br>PSU6_ALERT->  Functional property |
 | xyz.openbmc_project.inventory.cpld_psu_manager.service |    /xyz/openbmc_project/sensors/power/psu_drop_to_2    | xyz.openbmc_project.Object.Enable<br>Properties<br>Enabled   (Boolean)<br><br>w_PSU_PWrok_drop_to_1_event->Enabled property |
 | xyz.openbmc_project.inventory.cpld_psu_manager.service |    /xyz/openbmc_project/sensors/power/psu_drop_to_1    | xyz.openbmc_project.Object.Enable<br>Properties<br>Enabled   (Boolean)<br><br>w_PSU_PWrok_drop_to_1_event->Enabled property |
+| xyz.openbmc_project.inventory.cpld_psu_manager.service |    /xyz/openbmc_project/sensors/power/mbon_gboff    | xyz.openbmc_project.Object.Enable<br>Properties<br>Enabled   (Boolean)<br><br>r_MBON_GBOFF_event->Enabled property |
 
 ## Dbus Interface Links for Reference
 xyz. openbmc_project. Inventory.Item  (https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Inventory/Item.interface.yaml )\
