@@ -3,9 +3,9 @@ sample c programms
 
 
 ```
- +-------------------+         +------------------------+  cmd1  +--------------------------+
- |     BMCWeb        |  <--->  |   GPU                  |  <---->| GPU OOB                  |          
- |     Service       |         |   Manager              |  cmd2  | Server                   |
- |                   |         |  (backend dbus service)|  <---> | (hardware level servcie) |
- +-------------------+         +------------------------+        +--------------------------+
+ +-------------------+          dbus calls                   +------------------------+  cmd1  +--------------------------+
+ |     BMCWeb        |  <----------------------------------> |   GPU                  |  <---->| GPU OOB                  |
+ |     Service       |  (xyz.openbmc_project.Memory.<iface>) |   Manager              |  cmd2  | Server                   |
+ |                   |                                       |  (backend dbus service)|  <---> | (hardware level servcie) |
+ +-------------------+                                       +------------------------+        +--------------------------+
 ```
