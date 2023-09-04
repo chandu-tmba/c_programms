@@ -5,7 +5,7 @@ sample c programms
 ```
 
 +-----------------------------------------------------------------------------+
-|+-------------+          dbus calls                   +-------------------+  | cmd1  +-------------------+
+| +-------------+          dbus calls                   +-------------------+ | cmd1  +-------------------+
 | |   BMCWeb    |  <----------------------------------> |   GPU             | | <---->| GPU Out of band   |
 | |   Service   |  (xyz.openbmc_project.Memory.<iface>) |   Manager         | | cmd2  | Server            |
 | |             |                                       |  (backend dbus    | |<--->  | (hardware level ) |
